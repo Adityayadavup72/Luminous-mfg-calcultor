@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luminous Battery Date Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .creator {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .input-group {
+        margin: 25px 0;
+    }
+
+    label {
+        display: block;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .instruction {
+        background: #f0f4ff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border-left: 4px solid #667eea;
+    }
+
+    .instruction p {
+        color: #555;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    input[type="text"]:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .char-count {
+        text-align: right;
+        color: #999;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .result {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .result.show {
+        display: block;
+        animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .result h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .date-display {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        border: 2px solid #667eea;
+    }
+
+    .error {
+        color: #e74c3c;
+        font-size: 13px;
+        margin-top: 5px;
+        display: none;
+    }
+
+    .error.show {
+        display: block;
+    }
+
+    .company-footer {
+        margin-top: 30px;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        display: none;
+    }
+
+    .company-footer.show {
+        display: block;
+        animation: slideIn 0.5s ease;
+    }
+
+    .company-footer h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .company-footer p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 5px 0;
+    }
+
+    .legend {
+        background: #fff9e6;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        border-left: 4px solid #ffd700;
+    }
+
+    .legend h4 {
+        color: #333;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .legend p {
+        color: #666;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="creator">This program is Created by MR ΛDIƬYΛ YΛDΛV</div>
+            <h1>🔋 Luminous Inverter & Battery</h1>
+            <p class="subtitle">Manufacture Date Finder</p>
+        </div>
+
+```
+    <div class="instruction">
+        <p><strong>📝 Instructions:</strong><br>
+        Enter first 3 digits Serial Number of your Luminous Battery and Inverter only.<br>
+        Input only Alphabets and Numbers.</p>
+    </div>
+
+    <div class="input-group">
+        <label for="serialNumber">Serial Number (First 3 Digits)</label>
+        <input 
+            type="text" 
+            id="serialNumber" 
+            maxlength="3" 
+            placeholder="ABC"
+            oninput="validateInput(this)"
+        >
+        <div class="char-count"><span id="count">0</span>/3 characters</div>
+        <div class="error" id="error">Sirf alphabets aur numbers allowed hain!</div>
+    </div>
+
+    <button onclick="calculateDate()" id="calculateBtn" disabled>Get Manufacture Date</button>
+
+    <div class="result" id="result">
+        <h3>✅ Manufacture Date:</h3>
+        <div class="date-display" id="dateDisplay"></div>
+    </div>
+
+    <div class="company-footer" id="companyFooter">
+        <h3>YADAV BATTERY AND ENTERPRISES</h3>
+        <p>Address: Saifabad Patti Pratapgarh 230138 UP India</p>
+        <p>Mobile: 9918807409</p>
+    </div>
+</div>
+
+<script>
+    function validateInput(input) {
+        // Only allow alphanumeric characters
+        input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        
+        // Update character count
+        document.getElementById('count').textContent = input.value.length;
+        
+        // Enable/disable button
+        const btn = document.getElementById('calculateBtn');
+        btn.disabled = input.value.length !== 3;
+        
+        // Hide result when input changes
+        document.getElementById('result').classList.remove('show');
+    }
+
+    function convertToNumber(char) {
+        // If it's a digit (1-9)
+        if (char >= '1' && char <= '9') {
+            return parseInt(char);
+        }
+        // If it's a letter (A-Z)
+        if (char >= 'A' && char <= 'Z') {
+            return char.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+        }
+        return null;
+    }
+
+    function getMonthName(monthNum) {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+        return months[monthNum - 1] || 'Invalid';
+    }
+
+    function calculateDate() {
+        const serial = document.getElementById('serialNumber').value;
+        
+        if (serial.length !== 3) {
+            alert('Please enter exactly 3 characters!');
+            return;
+        }
+
+        // Convert each character
+        const day = convertToNumber(serial[0]);
+        const month = convertToNumber(serial[1]);
+        const year = convertToNumber(serial[2]);
+
+        // Validate
+        if (day === null || month === null || year === null) {
+            alert('Invalid input!');
+            return;
+        }
+
+        if (day < 1 || day > 31) {
+            alert('Day value out of range! Day should be between 1-31');
+            return;
+        }
+
+        if (month < 1 || month > 12) {
+            alert('Month value out of range! Month should be between 1-12');
+            return;
+        }
+
+        // Construct full year (assuming 2000s for now, you can adjust logic)
+        let fullYear;
+        if (year >= 0 && year <= 35) {
+            // Assuming years 2000-2035
+            fullYear = 2000 + year;
+        }
+
+        // Display result
+        const monthName = getMonthName(month);
+        const dateString = `${day} ${monthName} ${fullYear}`;
+        
+        document.getElementById('dateDisplay').textContent = dateString;
+        document.getElementById('result').classList.add('show');
+        document.getElementById('companyFooter').classList.add('show');
+    }
+
+    // Enter key support
+    document.getElementById('serialNumber').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && this.value.length === 3) {
+            calculateDate();
+        }
+    });
+</script>
+```
+
+</body>
+</html>
